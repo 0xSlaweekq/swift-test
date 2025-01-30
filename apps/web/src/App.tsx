@@ -37,8 +37,10 @@ const App = () => {
   const [error, setError] = React.useState<string | null>(null);
   const [taskStatus, setTaskStatus] = React.useState<string>("");
 
-  const apiUrl = "http://0.0.0.0:9002/api";
-  const wsUrl = "ws://0.0.0.0:9003";
+  const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+  const host = window.location.hostname; // Динамически получаем хост
+  const apiUrl = `${window.location.protocol}://${host}:9002/api`;
+  const wsUrl = `${protocol}://${host}:9003`;
 
   React.useEffect(() => {
     const ws = new WebSocket(wsUrl);

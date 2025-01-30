@@ -16,7 +16,7 @@ module.exports = {
     proxy: [
       {
         '/api': {
-          target: 'http://0.0.0.0:9002',
+          target: `${window.location.protocol}://${window.location.hostname}:9002`,
           changeOrigin: true,
           secure: false,
         },
