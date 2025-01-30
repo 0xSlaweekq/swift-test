@@ -1,0 +1,219 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true,
+    "node": true
+  },
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/test/**",
+    "**/tmp/**",
+    "**/coverage/**",
+    ".eslintrc.json",
+    ".nx"
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "allow": [],
+            "depConstraints": [
+              {
+                "onlyDependOnLibsWithTags": ["*"],
+                "sourceTag": "*"
+              }
+            ],
+            "enforceBuildableLibDependency": true
+          }
+        ],
+        "@typescript-eslint/no-unused-vars": "warn",
+        "no-fallthrough": "off",
+        "no-unused-vars": "warn"
+      }
+    },
+    {
+      "extends": ["plugin:@nx/typescript"],
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": "off"
+      }
+    },
+    {
+      "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jsx-a11y/recommended", "prettier"],
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true,
+          "modules": true,
+          "tsx": true
+        },
+        "project": "tsconfig.json",
+        "sourceType": "module",
+        "tsconfigRootDir": "."
+      },
+      "plugins": ["react", "jsx-a11y", "@typescript-eslint", "import", "prettier"],
+      "rules": {
+        "@typescript-eslint/array-type": "error",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/comma-dangle": ["warn", "always-multiline"],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "no-public"
+          }
+        ],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-for-in-array": "error",
+        "@typescript-eslint/no-invalid-this": "error",
+        "@typescript-eslint/no-magic-numbers": "off",
+        "@typescript-eslint/no-misused-promises": "error",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-redeclare": "error",
+        "@typescript-eslint/no-require-imports": "error",
+        "@typescript-eslint/no-shadow": "warn",
+        "@typescript-eslint/no-unused-expressions": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-useless-constructor": "off",
+        "@typescript-eslint/prefer-function-type": "warn",
+        "@typescript-eslint/prefer-namespace-keyword": "warn",
+        "@typescript-eslint/return-await": "off",
+        "@typescript-eslint/semi": "off",
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
+      },
+      "settings": {
+        "react": {
+          "version": "detect"
+        }
+      }
+    },
+    {
+      "extends": ["eslint:recommended", "prettier"],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "sourceType": "module"
+      },
+      "plugins": ["import", "prettier", "unused-imports"],
+      "rules": {
+        "array-bracket-newline": "off",
+        "array-bracket-spacing": ["error", "never"],
+        "array-callback-return": "error",
+        "arrow-parens": "warn",
+        "brace-style": [
+          "error",
+          "1tbs",
+          {
+            "allowSingleLine": false
+          }
+        ],
+        "camelcase": "off",
+        "class-methods-use-this": "off",
+        "comma-dangle": ["warn", "always-multiline"],
+        "constructor-super": "error",
+        "curly": ["error", "all"],
+        "default-case": "off",
+        "eqeqeq": ["warn", "smart"],
+        "eslint-plugin-import/no-named-default": "off",
+        "guard-for-in": "warn",
+        "id-blacklist": "error",
+        "import/extensions": "off",
+        "import/first": "warn",
+        "import/newline-after-import": "warn",
+        "import/no-cycle": "warn",
+        "import/no-duplicates": "warn",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-named-as-default": "off",
+        "import/no-unresolved": 0,
+        "import/no-unused-modules": "warn",
+        "import/order": [
+          "warn",
+          {
+            "alphabetize": {
+              "order": "asc"
+            },
+            "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
+            "newlines-between": "always"
+          }
+        ],
+        "import/prefer-default-export": "off",
+        "linebreak-style": ["error", "unix"],
+        "max-classes-per-file": "off",
+        "no-await-in-loop": "off",
+        "no-constant-condition": "off",
+        "no-continue": "off",
+        "no-debugger": "error",
+        "no-duplicate-case": "error",
+        "no-duplicate-imports": "error",
+        "no-empty": [
+          "error",
+          {
+            "allowEmptyCatch": true
+          }
+        ],
+        "no-empty-pattern": "error",
+        "no-eval": "error",
+        "no-extra-bind": "error",
+        "no-invalid-this": "off",
+        "no-magic-numbers": "off",
+        "no-param-reassign": "off",
+        "no-plusplus": "off",
+        "no-promise-executor-return": "off",
+        "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"],
+        "no-return-assign": "off",
+        "no-return-await": "off",
+        "no-sequences": "off",
+        "no-shadow": "off",
+        "no-sparse-arrays": "error",
+        "no-template-curly-in-string": "error",
+        "no-throw-literal": "error",
+        "no-underscore-dangle": "off",
+        "no-unsafe-finally": "error",
+        "no-unused-labels": "error",
+        "no-unused-vars": "off",
+        "no-useless-concat": "off",
+        "object-shorthand": ["error", "always"],
+        "one-var": ["error", "never"],
+        "prefer-const": "warn",
+        "prefer-destructuring": "off",
+        "prefer-object-spread": "error",
+        "prefer-template": "error",
+        "quote-props": "off",
+        "radix": ["warn", "as-needed"],
+        "semi": "off",
+        "semi-style": "off",
+        "symbol-description": "off",
+        "unused-imports/no-unused-imports": "warn"
+      }
+    },
+    {
+      "extends": ["plugin:@nx/javascript"],
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.json"],
+      "parser": "jsonc-eslint-parser"
+    },
+    {
+      "env": {
+        "jest": true
+      },
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "rules": {}
+    }
+  ],
+  "plugins": ["@nx", "import", "prettier", "unused-imports"],
+  "root": true
+}

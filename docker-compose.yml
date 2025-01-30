@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - test
+
+  redis:
+    image: redis:7.0.7-alpine
+    container_name: redis
+    restart: always
+    command: >
+      redis-server
+      --maxmemory ${REDIS_MEMORY:-1024mb}
+      --databases ${REDIS_DB:-1}
+      --maxmemory-policy ${REDIS_POLICY:-allkeys-lru}
+      --loglevel ${LOG_LEVEL:-notice}
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - test
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  test:
+    external: false

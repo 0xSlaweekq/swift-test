@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "strictBindCallApply": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false
+  },
+  "extends": "./tsconfig.base.json"
+}
