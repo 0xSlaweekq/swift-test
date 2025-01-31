@@ -8,6 +8,7 @@ nvm use
 npm ci
 
 chmod +x apps/server/src/assets/start.sh
+chmod +x dist/apps/server/assets/start.sh
 cp .env.example .env
 
 npm run build

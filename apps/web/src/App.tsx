@@ -37,12 +37,8 @@ const App = () => {
   const [error, setError] = React.useState<string | null>(null);
   const [taskStatus, setTaskStatus] = React.useState<string>("");
 
-  const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
   const host = window.location.hostname;
-  console.log({
-    protocol,
-    host,
-  });
   const apiUrl = `${window.location.protocol}//${window.location.hostname}/api`;
   const wsUrl = `${protocol}//${host}/ws`;
 
@@ -78,20 +74,9 @@ const App = () => {
   }, []);
 
   React.useEffect(() => {
-    console.log({
-      apiUrl,
-      wsUrl,
-    });
     axios
       .get(`${apiUrl}/config`)
-      .then((res) => {
-        console.log({
-          res,
-          data: res.data,
-        });
-
-        setConfig(res.data);
-      })
+      .then((res) => setConfig(res.data))
       .catch(() => setError("Ошибка загрузки конфигурации"));
   }, []);
 
@@ -128,7 +113,7 @@ const App = () => {
         }}
         style={{ marginTop: 20 }}
       >
-        {config && config?.parameters ? (
+        {config && config.parameters && config.parameters.input ? (
           config.parameters.input.map((param) => (
             <Box key={param.name} sx={{ mb: 2 }}>
               <Typography>{param.title}</Typography>
