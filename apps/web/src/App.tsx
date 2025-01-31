@@ -43,8 +43,8 @@ const App = () => {
     protocol,
     host,
   });
-  const apiUrl = `${window.location.protocol}://${window.location.hostname}/api`;
-  const wsUrl = `${protocol}://${host}/ws`;
+  const apiUrl = `${window.location.protocol}//${window.location.hostname}/api`;
+  const wsUrl = `${protocol}//${host}/ws`;
 
   React.useEffect(() => {
     const ws = new WebSocket(wsUrl);
