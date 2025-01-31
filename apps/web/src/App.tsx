@@ -38,9 +38,16 @@ const App = () => {
   const [taskStatus, setTaskStatus] = React.useState<string>("");
 
   const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-  const host = window.location.hostname; // Динамически получаем хост
-  const apiUrl = `${window.location.protocol}://${host}:9002/api`;
-  const wsUrl = `${protocol}://${host}:9003`;
+  const host = window.location.hostname;
+  console.log({
+    protocol,
+    host,
+  });
+  const apiUrl = `${window.location.protocol}://${window.location.hostname}/api`;
+  const wsUrl = `${protocol}://${host}/ws`;
+
+  // const apiUrl = `https://dashboard.naumov.company/api`;
+  // const wsUrl = `wss://dashboard.naumov.company/ws`;
 
   React.useEffect(() => {
     const ws = new WebSocket(wsUrl);
@@ -74,9 +81,20 @@ const App = () => {
   }, []);
 
   React.useEffect(() => {
+    console.log({
+      apiUrl,
+      wsUrl,
+    });
     axios
       .get(`${apiUrl}/config`)
-      .then((res) => setConfig(res.data))
+      .then((res) => {
+        console.log({
+          res,
+          data: res.data,
+        });
+
+        setConfig(res.data);
+      })
       .catch(() => setError("Ошибка загрузки конфигурации"));
   }, []);
 
@@ -113,29 +131,32 @@ const App = () => {
         }}
         style={{ marginTop: 20 }}
       >
-        {config?.parameters.input.map((param) => (
-          <Box key={param.name} sx={{ mb: 2 }}>
-            <Typography>{param.title}</Typography>
-            <Controller
-              name={param.name as "inputNum" | "inputText"}
-              control={control}
-              defaultValue={param.items?.[0]?.value || ""}
-              render={({ field }) =>
-                param.type === "number" ? (
-                  <TextField type="number" {...field} fullWidth />
-                ) : (
-                  <Select {...field} fullWidth>
-                    {param.items?.map((item) => (
-                      <MenuItem key={item.value} value={item.value}>
-                        {item.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                )
-              }
-            />
-          </Box>
-        ))}
+        {config ? (
+          config.parameters.input.map((param) => (
+            <Box key={param.name} sx={{ mb: 2 }}>
+              <Typography>{param.title}</Typography>
+              <Controller
+                name={param.name as "inputNum" | "inputText"}
+                control={control}
+                render={({ field }) =>
+                  param.type === "number" ? (
+                    <TextField type="number" {...field} fullWidth />
+                  ) : (
+                    <Select {...field} fullWidth>
+                      {param.items?.map((item) => (
+                        <MenuItem key={item.value} value={item.value}>
+                          {item.title}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )
+                }
+              />
+            </Box>
+          ))
+        ) : (
+          <Typography>Загрузка конфигурации...</Typography>
+        )}
 
         <Button
           type="submit"

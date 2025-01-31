@@ -14,7 +14,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
   const port = get('APP_PORT').required().asPortNumber()
-  const hostname = get('APP_HOST').default('0.0.0.0').asString()
+  const hostname = get('APP_HOST').default('localhost').asString()
   const node = get('NODE_ENV').default('production').asString()
 
   const globalPrefix = 'api'
@@ -23,7 +23,11 @@ async function bootstrap() {
   app.use(bodyParser.json({ limit: '50mb' }))
   app.useGlobalFilters(new DefaultErrorFilter())
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
-  app.enableCors({ origin: '*' })
+  app.enableCors({
+    origin: '*',
+    methods: ['GET', 'POST'],
+    credentials: true,
+  })
 
   const config = new DocumentBuilder()
     .setTitle('Server API')

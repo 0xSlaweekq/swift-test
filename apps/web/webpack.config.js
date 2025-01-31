@@ -12,11 +12,20 @@ module.exports = {
   mode: 'development',
   devServer: {
     port: 9001,
+    allowedHosts: 'all',
     historyApiFallback: true,
     proxy: [
       {
         '/api': {
-          target: `${window.location.protocol}://${window.location.hostname}:9002`,
+          target: 'http://localhost:9002',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+      {
+        '/ws': {
+          target: 'ws://localhost:9003',
+          ws: true,
           changeOrigin: true,
           secure: false,
         },
