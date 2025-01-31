@@ -46,9 +46,6 @@ const App = () => {
   const apiUrl = `${window.location.protocol}://${window.location.hostname}/api`;
   const wsUrl = `${protocol}://${host}/ws`;
 
-  // const apiUrl = `https://dashboard.naumov.company/api`;
-  // const wsUrl = `wss://dashboard.naumov.company/ws`;
-
   React.useEffect(() => {
     const ws = new WebSocket(wsUrl);
     socketRef.current = ws;
