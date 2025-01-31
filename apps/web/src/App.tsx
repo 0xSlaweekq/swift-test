@@ -131,7 +131,7 @@ const App = () => {
         }}
         style={{ marginTop: 20 }}
       >
-        {config ? (
+        {config && config?.parameters ? (
           config.parameters.input.map((param) => (
             <Box key={param.name} sx={{ mb: 2 }}>
               <Typography>{param.title}</Typography>
